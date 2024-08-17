@@ -1,24 +1,24 @@
 const express = require("express");
+const {
+  setPosts,
+  getPosts,
+  editPost,
+  deletePost,
+} = require("../controllers/post.controller");
 const router = express.Router();
 
 // localhost5000/post               request (ce qui est envoyé dans la requête ex: id, numéro de commentaire) response ( ce que le serveur renvoi )
-router.get("/", (req, res) => {
-  res.json({ message: "Voici les données" });
-});
+// GET pour prendre une donnée en BDD et l'afficher
+router.get("/", getPosts);
 
 // req = les données qu'on envoi pour faire notre requete ( id/nom de l'auteur/ un commentaire ( une donnée récupéré dans un input ))
-router.post("/", (req, res) => {
-  console.log(req.body);
-  res.json({ message: req.body.message });
-});
+// POST pour envoyer une donnée en BDD
+router.post("/", setPosts);
 
-router.put("/:id", (req, res) => {
-  res.json({ messageId: req.params.id });
-});
+// PUT pour modifier une donnée en BDD
+router.put("/:id", editPost);
 
-router.delete("/:id", (req, res) => {
-  res.json({ message: "Post supprimé id :" + req.params.id });
-});
+router.delete("/:id", deletePost);
 
 router.patch("/like-post/:id", (req, res) => {
   res.json({ message: "Post liké : id : " + req.params.id });
